@@ -20,6 +20,11 @@ function doGet(e) {
 
 function route(action, token, payload) {
   switch (action) {
+    // Public (no auth)
+    case 'public.roomTypes':         return handlePublicRoomTypes()
+    case 'public.checkAvailability': return handlePublicCheckAvailability(payload)
+    case 'public.book':              return handlePublicBook(payload)
+
     // Auth
     case 'auth.login':  return handleLogin(payload)
     case 'auth.logout': return handleLogout(token)

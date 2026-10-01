@@ -11,6 +11,7 @@ import Bookings from './pages/Bookings'
 import BookingNew from './pages/BookingNew'
 import BookingDetail from './pages/BookingDetail'
 import Housekeeping from './pages/Housekeeping'
+import Public from './pages/Public'
 
 export default function App() {
   return (
@@ -42,6 +43,7 @@ export default function App() {
           <Route path="/housekeeping" element={
             <ProtectedRoute><Layout><Housekeeping /></Layout></ProtectedRoute>
           } />
+          <Route path="/public" element={<Public />} />
           <Route path="*" element={<Navigate to="/" replace />} />
         </Routes>
       </AuthProvider>
