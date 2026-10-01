@@ -68,6 +68,42 @@ export default function RoomDetail() {
         {[
           { label: 'Room Number', key: 'roomNumber', type: 'text', placeholder: '101' },
           { label: 'Floor', key: 'floor', type: 'number', placeholder: '1' },
+        ].map(f => (
+          <div key={f.key}>
+            <label className="block text-sm font-medium text-gray-700 mb-1">{f.label}</label>
+            <input
+              type={f.type}
+              value={form[f.key]}
+              onChange={e => setForm(p => ({ ...p, [f.key]: e.target.value }))}
+              placeholder={f.placeholder}
+              required
+              className="w-full border border-gray-200 rounded-xl px-3 py-2.5 text-sm focus:outline-none focus:ring-2 focus:ring-blue-500"
+            />
+          </div>
+        ))}
+        <div>
+          <label className="block text-sm font-medium text-gray-700 mb-1">Room Type</label>
+          <select
+            value={form.roomTypeId}
+            onChange={e => {
+              const selected = roomTypes.find(t => t.roomTypeId === e.target.value)
+              setForm(p => ({
+                ...p,
+                roomTypeId: e.target.value,
+                maxOccupancy: selected ? String(selected.maxGuests) : p.maxOccupancy,
+                currentRate: selected ? String(selected.basePrice) : p.currentRate,
+              }))
+            }}
+            required
+            className="w-full border border-gray-200 rounded-xl px-3 py-2.5 text-sm focus:outline-none focus:ring-2 focus:ring-blue-500"
+          >
+            <option value="">Select type…</option>
+            {roomTypes.filter(t => t.active === true || t.active === 'TRUE').map(t => (
+              <option key={t.roomTypeId} value={t.roomTypeId}>{t.name}</option>
+            ))}
+          </select>
+        </div>
+        {[
           { label: 'Max Occupancy', key: 'maxOccupancy', type: 'number', placeholder: '2' },
           { label: 'Rate per Night (₹)', key: 'currentRate', type: 'number', placeholder: '2500' },
           { label: 'Notes', key: 'notes', type: 'text', placeholder: 'Optional' },
@@ -84,20 +120,6 @@ export default function RoomDetail() {
             />
           </div>
         ))}
-        <div>
-          <label className="block text-sm font-medium text-gray-700 mb-1">Room Type</label>
-          <select
-            value={form.roomTypeId}
-            onChange={e => setForm(p => ({ ...p, roomTypeId: e.target.value }))}
-            required
-            className="w-full border border-gray-200 rounded-xl px-3 py-2.5 text-sm focus:outline-none focus:ring-2 focus:ring-blue-500"
-          >
-            <option value="">Select type…</option>
-            {roomTypes.filter(t => t.active === true || t.active === 'TRUE').map(t => (
-              <option key={t.roomTypeId} value={t.roomTypeId}>{t.name}</option>
-            ))}
-          </select>
-        </div>
         <button
           type="submit"
           disabled={saving}
