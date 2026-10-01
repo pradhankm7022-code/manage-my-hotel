@@ -25,6 +25,18 @@ function route(action, token, payload) {
     case 'auth.logout': return handleLogout(token)
     case 'auth.me':     return handleMe(token)
 
+    // Rooms
+    case 'room.list':      return handleRoomList(token, payload)
+    case 'room.get':       return handleRoomGet(token, payload)
+    case 'room.create':    return handleRoomCreate(token, payload)
+    case 'room.update':    return handleRoomUpdate(token, payload)
+    case 'room.setStatus': return handleRoomSetStatus(token, payload)
+
+    // Room Types
+    case 'roomType.list':   return handleRoomTypeList(token)
+    case 'roomType.create': return handleRoomTypeCreate(token, payload)
+    case 'roomType.update': return handleRoomTypeUpdate(token, payload)
+
     // Settings (stub — Sprint 9)
     case 'settings.getAll':  return handleSettingsGetAll(token)
     case 'settings.update':  return handleSettingsUpdate(token, payload)
