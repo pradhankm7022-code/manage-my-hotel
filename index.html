@@ -4,7 +4,14 @@
     <meta charset="UTF-8" />
     <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>manage-my-hotel</title>
+    <title>Manage My Hotel</title>
+    <script>
+      const redirect = sessionStorage.getItem('spa_redirect')
+      if (redirect) {
+        sessionStorage.removeItem('spa_redirect')
+        window.history.replaceState(null, '', '/manage-my-hotel' + redirect)
+      }
+    </script>
   </head>
   <body>
     <div id="root"></div>

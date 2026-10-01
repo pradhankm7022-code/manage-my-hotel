@@ -1,0 +1,12 @@
+<!doctype html>
+<html>
+  <head>
+    <script>
+      const path = window.location.pathname.replace('/manage-my-hotel', '') || '/'
+      const search = window.location.search
+      const hash = window.location.hash
+      sessionStorage.setItem('spa_redirect', path + search + hash)
+      window.location.replace('/manage-my-hotel/')
+    </script>
+  </head>
+</html>
