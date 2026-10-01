@@ -68,7 +68,7 @@ export default function Rooms() {
         <p className="text-center text-gray-400 text-sm py-10">No rooms found</p>
       ) : (
         <div className="grid grid-cols-3 gap-3">
-          {filtered.sort((a, b) => a.roomNumber.localeCompare(b.roomNumber, undefined, { numeric: true })).map(room => {
+          {filtered.sort((a, b) => String(a.roomNumber).localeCompare(String(b.roomNumber), undefined, { numeric: true })).map(room => {
             const st = STATUS_STYLES[room.status] || STATUS_STYLES.AVAILABLE
             return (
               <Link
