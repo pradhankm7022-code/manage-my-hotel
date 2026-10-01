@@ -25,6 +25,9 @@ function route(action, token, payload) {
     case 'auth.logout': return handleLogout(token)
     case 'auth.me':     return handleMe(token)
 
+    // Dashboard
+    case 'dashboard.summary': return handleDashboardSummary(token)
+
     // Rooms
     case 'room.list':      return handleRoomList(token, payload)
     case 'room.get':       return handleRoomGet(token, payload)

@@ -10,6 +10,7 @@ import RoomTypes from './pages/RoomTypes'
 import Bookings from './pages/Bookings'
 import BookingNew from './pages/BookingNew'
 import BookingDetail from './pages/BookingDetail'
+import Housekeeping from './pages/Housekeeping'
 
 export default function App() {
   return (
@@ -37,6 +38,9 @@ export default function App() {
           } />
           <Route path="/bookings/:id" element={
             <ProtectedRoute><Layout><BookingDetail /></Layout></ProtectedRoute>
+          } />
+          <Route path="/housekeeping" element={
+            <ProtectedRoute><Layout><Housekeeping /></Layout></ProtectedRoute>
           } />
           <Route path="*" element={<Navigate to="/" replace />} />
         </Routes>

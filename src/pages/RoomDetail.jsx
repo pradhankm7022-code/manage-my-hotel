@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react'
-import { useParams, useNavigate } from 'react-router-dom'
+import { useParams, useNavigate, Link } from 'react-router-dom'
 import { call } from '../lib/api'
 import { useAuth } from '../context/AuthContext'
 import { ROOM_STATUSES, STATUS_STYLES } from '../lib/constants'
@@ -12,6 +12,7 @@ export default function RoomDetail() {
 
   const [room, setRoom] = useState(null)
   const [roomTypes, setRoomTypes] = useState([])
+  const [activeBooking, setActiveBooking] = useState(null)
   const [loading, setLoading] = useState(!isNew)
   const [saving, setSaving] = useState(false)
 
@@ -22,7 +23,14 @@ export default function RoomDetail() {
     call('roomType.list').then(setRoomTypes).catch(() => {})
     if (!isNew) {
       call('room.get', { roomId: id })
-        .then(setRoom)
+        .then(r => {
+          setRoom(r)
+          if (r.status === 'OCCUPIED') {
+            call('booking.list', { status: 'CHECKED_IN' })
+              .then(bookings => setActiveBooking(bookings.find(b => b.roomId === id) || null))
+              .catch(() => {})
+          }
+        })
         .catch(e => { alert(e.message); navigate('/rooms') })
         .finally(() => setLoading(false))
     }
@@ -154,6 +162,17 @@ export default function RoomDetail() {
         <p className="text-sm text-gray-600">Max {room.maxOccupancy} guests · ₹{Number(room.currentRate).toLocaleString('en-IN')}/night</p>
         {room.notes && <p className="text-xs text-gray-400 mt-1">{room.notes}</p>}
       </div>
+
+      {/* Active booking info */}
+      {activeBooking && (
+        <Link to={`/bookings/${activeBooking.bookingId}`} className="block bg-blue-50 rounded-2xl p-4 mb-4">
+          <p className="text-xs text-blue-400 mb-1">Current Guest</p>
+          <p className="font-semibold text-blue-800">{activeBooking.guestName}</p>
+          <p className="text-xs text-blue-600 mt-0.5">
+            Checks out {new Date(activeBooking.checkOut).toLocaleDateString('en-IN', { day: 'numeric', month: 'short' })}
+          </p>
+        </Link>
+      )}
 
       {/* Change status */}
       {canChangeStatus && (
