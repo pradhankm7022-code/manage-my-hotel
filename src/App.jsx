@@ -7,6 +7,9 @@ import Dashboard from './pages/Dashboard'
 import Rooms from './pages/Rooms'
 import RoomDetail from './pages/RoomDetail'
 import RoomTypes from './pages/RoomTypes'
+import Bookings from './pages/Bookings'
+import BookingNew from './pages/BookingNew'
+import BookingDetail from './pages/BookingDetail'
 
 export default function App() {
   return (
@@ -15,24 +18,25 @@ export default function App() {
         <Routes>
           <Route path="/login" element={<Login />} />
           <Route path="/" element={
-            <ProtectedRoute>
-              <Layout><Dashboard /></Layout>
-            </ProtectedRoute>
+            <ProtectedRoute><Layout><Dashboard /></Layout></ProtectedRoute>
           } />
           <Route path="/rooms" element={
-            <ProtectedRoute>
-              <Layout><Rooms /></Layout>
-            </ProtectedRoute>
+            <ProtectedRoute><Layout><Rooms /></Layout></ProtectedRoute>
           } />
           <Route path="/rooms/types" element={
-            <ProtectedRoute>
-              <Layout><RoomTypes /></Layout>
-            </ProtectedRoute>
+            <ProtectedRoute><Layout><RoomTypes /></Layout></ProtectedRoute>
           } />
           <Route path="/rooms/:id" element={
-            <ProtectedRoute>
-              <Layout><RoomDetail /></Layout>
-            </ProtectedRoute>
+            <ProtectedRoute><Layout><RoomDetail /></Layout></ProtectedRoute>
+          } />
+          <Route path="/bookings" element={
+            <ProtectedRoute><Layout><Bookings /></Layout></ProtectedRoute>
+          } />
+          <Route path="/bookings/new" element={
+            <ProtectedRoute><Layout><BookingNew /></Layout></ProtectedRoute>
+          } />
+          <Route path="/bookings/:id" element={
+            <ProtectedRoute><Layout><BookingDetail /></Layout></ProtectedRoute>
           } />
           <Route path="*" element={<Navigate to="/" replace />} />
         </Routes>

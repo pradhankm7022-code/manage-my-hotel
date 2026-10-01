@@ -37,6 +37,14 @@ function route(action, token, payload) {
     case 'roomType.create': return handleRoomTypeCreate(token, payload)
     case 'roomType.update': return handleRoomTypeUpdate(token, payload)
 
+    // Bookings
+    case 'booking.list':     return handleBookingList(token, payload)
+    case 'booking.get':      return handleBookingGet(token, payload)
+    case 'booking.create':   return handleBookingCreate(token, payload)
+    case 'booking.checkIn':  return handleBookingCheckIn(token, payload)
+    case 'booking.checkOut': return handleBookingCheckOut(token, payload)
+    case 'booking.cancel':   return handleBookingCancel(token, payload)
+
     // Settings (stub — Sprint 9)
     case 'settings.getAll':  return handleSettingsGetAll(token)
     case 'settings.update':  return handleSettingsUpdate(token, payload)
