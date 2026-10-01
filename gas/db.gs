@@ -1,6 +1,6 @@
 // db.gs — All Google Sheets access goes through here
 
-const SPREADSHEET_ID = 'YOUR_SPREADSHEET_ID' // replace after creating the sheet
+const SPREADSHEET_ID = '1pkGxG0HDVIcH2rXA3Er_yPgGLYRC04cDaTyX-oQf5hU' // replace after creating the sheet
 
 function getSheet(name) {
   return SpreadsheetApp.openById(SPREADSHEET_ID).getSheetByName(name)
